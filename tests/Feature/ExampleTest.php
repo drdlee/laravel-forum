@@ -7,15 +7,26 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function test_a_user_can_browse_threads()
     {
-        $response = $this->get('/');
+        $thread = factory('App\Thread')->create();
 
-        $response->assertStatus(200);
+        $response = $this->get('/threads');
+        $response->assertSee($thread->title);
+
+    }
+
+    public function test_a_user_can_read_a_single_thread()
+    {
+        $thread = factory('App\Thread')->create();
+        
+        $response = $this->get('/threads/'.$thread->id);
+        $response->assertSee($thread->title);
     }
 }
