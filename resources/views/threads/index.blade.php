@@ -8,11 +8,17 @@
                 <div class="panel-heading">Forum Threads</div>
 
                 <div class="panel-body">
+                <a href="/threads/create" class="btn btn-primary">Create New Thread</a>
+                <a href="/channels/create" class="btn btn-primary">create channel</a>
                     @foreach($threads as $thread)
                         <article>
-                            <h4><a href="{{ $thread->path() }}">{{ $thread->title }}</a></h4>
-                            <div class="body">{{ $thread->body }}</div>
+                            <div class="level">
+                                <h4 class="flex"><a href="{{ $thread->path() }}">{{ $thread->title }}</a></h4>
+                                <a href="{{ $thread->path() }}">{{ $thread->replies()->count() }} {{ str_plural('Reply', $thread->replies()->count()) }}</a>
+                            </div>
+                            <div>{{ $thread->body }}</div>
                         </article>
+                        <hr>
                     @endforeach
                 </div>
             </div>
