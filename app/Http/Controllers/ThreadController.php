@@ -20,11 +20,7 @@ class ThreadController extends Controller
      */
     public function index(Channel $channel, Threadfilters $filters)
     {
-        $threads = Thread::latest()->filter($filters); // ->filter($filter) will be ignored if no paramenter passed.
-        if($channel->exists){
-            $threads->where('channel_id', $channel->id);
-        }
-        $threads = $threads->get();
+        $threads = $this->getThreads($channel, $filters);
 
         return view('threads.index', compact('threads')) ;
     }
@@ -111,5 +107,14 @@ class ThreadController extends Controller
     public function destroy(Thread $thread)
     {
         //
+    }
+
+    public function getThreads($channel, $filters)
+    {
+        $threads = Thread::latest()->filter($filters); // ->filter($filter) will be ignored if no paramenter passed.
+        if($channel->exists){
+            $threads->where('channel_id', $channel->id);
+        }
+        return $threads = $threads->get();
     }
 }
