@@ -42,7 +42,7 @@
                 <div class="panel-body">
                     <p>This thread was published at {{ $thread->created_at->diffForHumans() }}</p>
                     <p>by. {{ $thread->owner->name }}</p>
-                    <p>{{ str_plural('Reply', $thread->replies()->count()) }} count {{ $thread->replies()->count() }}</p>
+                    <p>{{ str_plural('Reply', $thread->replies_count) }} count {{ $thread->replies_count }}</p>
                 </div>
             </div>
         </div>
