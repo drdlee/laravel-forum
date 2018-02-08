@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     protected $fillable = ['user_id', 'title', 'body', 'channel_id'];
+    protected $with = ['owner','channel'];
 
     protected static function boot()
     {
@@ -14,6 +15,9 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
         }); // ini maksudnya setiap kali panggil Thread::all(); maka pasti akan ada property 'replies_count' yg hitung jumlah reply dalam thread kita
+        // static::addGlobalScope('owner', function ($builder) {
+        //     $builder->with('owner');
+        // });
     }
 
     public function path()
