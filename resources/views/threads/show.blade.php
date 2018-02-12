@@ -7,8 +7,21 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>{{ $thread->title }}</h4>
-                    by. <a href="{{ route('profile', $thread->owner->name) }}">{{ $thread->owner->name }}</a>
+                    <div class="level">
+                        <span class="flex">
+                            <h4>{{ $thread->title }}</h4>
+                            by. <a href="{{ route('profile', $thread->owner->name) }}">{{ $thread->owner->name }}</a>
+                        </span>
+                        @can('update', $thread)
+                            <form action="{{ $thread->path() }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-link">
+                                    Delete Thread
+                                </button>
+                            </form>
+                        @endcan
+                    </div>
                 </div>
 
                 <div class="panel-body">

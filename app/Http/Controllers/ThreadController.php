@@ -71,7 +71,7 @@ class ThreadController extends Controller
         // return $thread->replies;
         return view('threads.show', [
             'thread' => $thread,
-            'replies' => $thread->replies()->paginate(1)
+            'replies' => $thread->replies()->paginate(3)
         ]);
     }
 
@@ -104,9 +104,21 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy($channel, Thread $thread)
     {
-        //
+        $this->authorize('update', $thread); //this is ThreadPolicy
+
+        if($thread->user_id != auth()->id()){
+            abort(403, 'You have no permission yo');
+        }
+
+        $thread->delete();
+
+        if(request()->wantsJson()){
+            return response([], 204);
+        }
+
+        return redirect('/threads');
     }
 
     public function getThreads($channel, $filters)

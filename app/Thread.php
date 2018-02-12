@@ -18,6 +18,9 @@ class Thread extends Model
         // static::addGlobalScope('owner', function ($builder) {
         //     $builder->with('owner');
         // });
+        static::deleting(function ($thread){
+            $thread->replies()->delete();
+        }); // when deleting thread, also delete replies, ini namanya Model Events
     }
 
     public function path()
