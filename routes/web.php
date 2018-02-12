@@ -24,6 +24,8 @@ Route::post('/threads', 'ThreadController@store');
 Route::get('/threads/{channel}', 'ThreadController@index');
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
 
+Route::get('/profiles/{user}', 'ProfileController@show')->name('profile');
+
 Route::resource('/channels', 'ChannelController');
 
 Route::post('/threads/{channel}/{thread}/reply', 'ReplyController@store');

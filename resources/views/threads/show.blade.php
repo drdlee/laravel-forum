@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>{{ $thread->title }}</h4>
-                    by. <a href="#">{{ $thread->owner->name }}</a>
+                    by. <a href="{{ route('profile', $thread->owner->name) }}">{{ $thread->owner->name }}</a>
                 </div>
 
                 <div class="panel-body">
