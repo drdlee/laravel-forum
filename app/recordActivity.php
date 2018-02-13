@@ -6,6 +6,8 @@ trait recordActivity
 {
     protected static function bootRecordActivity()
     {
+        if(auth()->guest()) return;
+
         foreach (static::getAtivitiesToRecord() as $event){
             static::$event(function ($threadOrReply) use ($event){
                 $threadOrReply->recordActivity($event);
