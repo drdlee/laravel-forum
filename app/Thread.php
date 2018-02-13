@@ -20,7 +20,7 @@ class Thread extends Model
         //     $builder->with('owner');
         // });
         static::deleting(function ($thread){
-            $thread->replies()->delete();
+            $thread->replies->each->delete();
         }); // when deleting thread, also delete replies, ini namanya Model Events
     }
 

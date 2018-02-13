@@ -8,14 +8,18 @@ trait recordActivity
     {
         if(auth()->guest()) return;
 
-        foreach (static::getAtivitiesToRecord() as $event){
+        foreach (static::getAcivitiesToRecord() as $event){
             static::$event(function ($threadOrReply) use ($event){
                 $threadOrReply->recordActivity($event);
             });
         }
+
+        static::deleting(function ($model){
+            $model->activity()->delete();
+        });
     }
 
-    protected static function getAtivitiesToRecord(){
+    protected static function getAcivitiesToRecord(){
         return ['created'];
     }
 
@@ -27,6 +31,11 @@ trait recordActivity
                 'subject_type' => get_class($this)
             ]);
         }
+
+    public function activity()
+    {
+        return $this->morphMany('App\Activity', 'subject');
+    }
 
     protected function getActivityType($event){
         $type = strtolower((new \ReflectionClass($this))->getShortName());
