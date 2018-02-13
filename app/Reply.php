@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    use seeFavoriteFromReply;
+    use seeFavoriteFromReply, recordActivity;
 
     protected $fillable = ['body', 'user_id'];
     protected $with = ['owner', 'favorites'];

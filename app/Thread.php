@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+    use recordActivity;
     protected $fillable = ['user_id', 'title', 'body', 'channel_id'];
     protected $with = ['owner','channel'];
 
