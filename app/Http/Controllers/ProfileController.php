@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     public function show(User $user){
+        $activities = $user->activity()->latest()->with('subject')->get();
         return view('profiles.show', [
             'profileUser' => $user,
-            'threads' => $user->threads()->paginate(15)
+            'activities' => $activities
         ]);
     }
 }

@@ -34,4 +34,8 @@ class User extends Authenticatable
     public function threads(){
         return $this->hasMany('App\Thread')->latest();
     }
+
+    public function activity(){
+        return $this->hasMany('App\Activity');
+    }
 }
